@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMJ23204 Add Sem (Peer Rating)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .progress-bar { transition: width 0.3s ease; }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen p-4">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">EMJ23204 Add Sem (Peer Rating)</h1>
+            <p class="text-white/80 text-lg">Rate your peers individually and as groups</p>
+            <div class="mt-4 bg-white/20 rounded-full px-6 py-2 inline-block">
+                <span class="text-white font-medium">Week <span id="currentWeek">1</span> of 2</span>
+            </div>
+        </div>
+
+        <!-- Progress Overview -->
+        <div class="bg-white rounded-xl card-shadow p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Weekly Progress</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-600">Individual Ratings</span>
+                        <span class="font-medium" id="individualProgress">0/15</span>
+                    </div>
+                    <div class="bg-gray-200 rounded-full h-3">
+                        <div class="bg-blue-500 h-3 rounded-full progress-bar" id="individualBar" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-600">Group Ratings</span>
+                        <span class="font-medium" id="groupProgress">0/10</span>
+                    </div>
+                    <div class="bg-gray-200 rounded-full h-3">
+                        <div class="bg-green-500 h-3 rounded-full progress-bar" id="groupBar" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rating Tabs -->
+        <div class="bg-white rounded-xl card-shadow overflow-hidden">
+            <div class="flex border-b">
+                <button class="tab-btn flex-1 py-4 px-6 font-medium transition-colors bg-blue-50 text-blue-600 border-b-2 border-blue-600" data-tab="individual">
+                    Individual Rating
+                </button>
+                <button class="tab-btn flex-1 py-4 px-6 font-medium transition-colors text-gray-600 hover:bg-gray-50" data-tab="group">
+                    Group Rating
+                </button>
+            </div>
+
+            <!-- Individual Rating Tab -->
+            <div id="individual-tab" class="tab-content p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6">Rate Individual Performance</h3>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">Select Person to Rate</label>
+                    <select id="individualSelect" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">Choose a person...</option>
+                        <option value="MOHAMMAD ALIEF HAKIMIE BIN MOHD JEFRI">MOHAMMAD ALIEF HAKIMIE BIN MOHD JEFRI</option>
+                        <option value="MUHAMAD SYAZLEY BIN MOHAMAD ADZMI">MUHAMAD SYAZLEY BIN MOHAMAD ADZMI</option>
+                        <option value="MUHAMMAD AQIEF BIN MIZANI">MUHAMMAD AQIEF BIN MIZANI</option>
+                        <option value="MUHAMMAD DANIAL AFIQ BIN MOHD ZAWAWI">MUHAMMAD DANIAL AFIQ BIN MOHD ZAWAWI</option>
+                        <option value="MUHAMMAD FAIDZ HAKIMI BIN ROSLAN">MUHAMMAD FAIDZ HAKIMI BIN ROSLAN</option>
+                        <option value="MUHAMMAD ZIKRI BIN ZAINUDIN">MUHAMMAD ZIKRI BIN ZAINUDIN</option>
+                    </select>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="rating-criteria">
+                        <label class="block text-gray-700 font-medium mb-3">Helpful (1-5 stars)</label>
+                        <div class="flex space-x-2">
+                            <div class="star-rating" data-criteria="helpful">
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="1">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="2">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="3">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="4">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="5">★</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rating-criteria">
+                        <label class="block text-gray-700 font-medium mb-3">Courageous (1-5 stars)</label>
+                        <div class="flex space-x-2">
+                            <div class="star-rating" data-criteria="courageous">
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="1">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="2">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="3">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="4">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="5">★</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rating-criteria">
+                        <label class="block text-gray-700 font-medium mb-3">Inspirational (1-5 stars)</label>
+                        <div class="flex space-x-2">
+                            <div class="star-rating" data-criteria="inspirational">
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="1">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="2">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="3">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="4">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="5">★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="submitIndividual" class="mt-6 w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed" disabled>
+                    Submit Individual Rating
+                </button>
+            </div>
+
+            <!-- Group Rating Tab -->
+            <div id="group-tab" class="tab-content p-6 hidden">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6">Rate Group Performance</h3>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">Select Group to Rate</label>
+                    <select id="groupSelect" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <option value="">Choose a group...</option>
+                        <option value="Team G1">Team G1</option>
+                        <option value="Team G2">Team G2</option>
+                        <option value="Team G3">Team G3</option>
+                        <option value="Team Delta">Team Delta</option>
+                        <option value="Team Epsilon">Team Epsilon</option>
+                    </select>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="rating-criteria">
+                        <label class="block text-gray-700 font-medium mb-3">Best Presentation (Clarity & Learning) (1-5 stars)</label>
+                        <div class="flex space-x-2">
+                            <div class="star-rating" data-criteria="presentation">
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="1">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="2">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="3">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="4">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="5">★</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rating-criteria">
+                        <label class="block text-gray-700 font-medium mb-3">Engagement with Others (1-5 stars)</label>
+                        <div class="flex space-x-2">
+                            <div class="star-rating" data-criteria="engagement">
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="1">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="2">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="3">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="4">★</span>
+                                <span class="star text-3xl cursor-pointer text-gray-300 hover:text-yellow-400" data-value="5">★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="submitGroup" class="mt-6 w-full bg-green-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed" disabled>
+                    Submit Group Rating
+                </button>
+            </div>
+        </div>
+
+        <!-- Recent Ratings -->
+        <div class="mt-8 bg-white rounded-xl card-shadow p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Recent Ratings</h3>
+            <div id="recentRatings" class="space-y-3">
+                <p class="text-gray-500 text-center py-4">No ratings submitted yet</p>
+            </div>
+        </div>
+
+        <!-- Google Sheets Integration Notice -->
+        <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div class="flex items-center">
+                <svg class="w-5 h-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-blue-800 font-medium">Demo Mode:</span>
+                <span class="text-blue-700 ml-1">Data is stored locally. In production, this would sync with Google Sheets automatically.</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // App state
+        let ratings = JSON.parse(localStorage.getItem('peerRatings')) || {
+            individual: [],
+            group: [],
+            week: 1
+        };
+
+        let currentRating = {
+            individual: { helpful: 0, courageous: 0, inspirational: 0 },
+            group: { presentation: 0, engagement: 0 }
+        };
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+            setupEventListeners();
+            updateWeekDisplay();
+        });
+
+        function setupEventListeners() {
+            // Tab switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tab = this.dataset.tab;
+                    switchTab(tab);
+                });
+            });
+
+            // Star ratings
+            document.querySelectorAll('.star-rating').forEach(ratingGroup => {
+                const criteria = ratingGroup.dataset.criteria;
+                const stars = ratingGroup.querySelectorAll('.star');
+                
+                stars.forEach((star, index) => {
+                    star.addEventListener('click', function() {
+                        const value = parseInt(this.dataset.value);
+                        setRating(criteria, value);
+                        updateStars(ratingGroup, value);
+                        checkSubmitButton();
+                    });
+
+                    star.addEventListener('mouseenter', function() {
+                        const value = parseInt(this.dataset.value);
+                        highlightStars(ratingGroup, value);
+                    });
+                });
+
+                ratingGroup.addEventListener('mouseleave', function() {
+                    const currentValue = getCurrentRating(criteria);
+                    updateStars(ratingGroup, currentValue);
+                });
+            });
+
+            // Dropdown changes
+            document.getElementById('individualSelect').addEventListener('change', checkSubmitButton);
+            document.getElementById('groupSelect').addEventListener('change', checkSubmitButton);
+
+            // Submit buttons
+            document.getElementById('submitIndividual').addEventListener('click', submitIndividualRating);
+            document.getElementById('submitGroup').addEventListener('click', submitGroupRating);
+        }
+
+        function switchTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-50', 'text-blue-600', 'border-b-2', 'border-blue-600');
+                btn.classList.add('text-gray-600');
+            });
+            
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('bg-blue-50', 'text-blue-600', 'border-b-2', 'border-blue-600');
+            document.querySelector(`[data-tab="${tab}"]`).classList.remove('text-gray-600');
+
+            // Show/hide content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.getElementById(`${tab}-tab`).classList.remove('hidden');
+        }
+
+        function setRating(criteria, value) {
+            const activeTab = document.querySelector('.tab-btn.bg-blue-50').dataset.tab;
+            currentRating[activeTab][criteria] = value;
+        }
+
+        function getCurrentRating(criteria) {
+            const activeTab = document.querySelector('.tab-btn.bg-blue-50').dataset.tab;
+            return currentRating[activeTab][criteria] || 0;
+        }
+
+        function updateStars(ratingGroup, value) {
+            const stars = ratingGroup.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                if (index < value) {
+                    star.classList.remove('text-gray-300');
+                    star.classList.add('text-yellow-400');
+                } else {
+                    star.classList.remove('text-yellow-400');
+                    star.classList.add('text-gray-300');
+                }
+            });
+        }
+
+        function highlightStars(ratingGroup, value) {
+            const stars = ratingGroup.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                if (index < value) {
+                    star.classList.remove('text-gray-300');
+                    star.classList.add('text-yellow-400');
+                } else {
+                    star.classList.remove('text-yellow-400');
+                    star.classList.add('text-gray-300');
+                }
+            });
+        }
+
+        function checkSubmitButton() {
+            const activeTab = document.querySelector('.tab-btn.bg-blue-50').dataset.tab;
+            let canSubmit = false;
+
+            if (activeTab === 'individual') {
+                const person = document.getElementById('individualSelect').value;
+                const ratings = currentRating.individual;
+                canSubmit = person && ratings.helpful > 0 && ratings.courageous > 0 && ratings.inspirational > 0;
+                document.getElementById('submitIndividual').disabled = !canSubmit;
+            } else {
+                const group = document.getElementById('groupSelect').value;
+                const ratings = currentRating.group;
+                canSubmit = group && ratings.presentation > 0 && ratings.engagement > 0;
+                document.getElementById('submitGroup').disabled = !canSubmit;
+            }
+        }
+
+        function submitIndividualRating() {
+            const person = document.getElementById('individualSelect').value;
+            const ratingData = {
+                person: person,
+                ratings: { ...currentRating.individual },
+                timestamp: new Date().toISOString(),
+                week: ratings.week
+            };
+
+            ratings.individual.push(ratingData);
+			saveRatings("individual", ratingData);
+            saveRatings();
+            resetForm('individual');
+            updateProgress();
+            addRecentRating('individual', ratingData);
+            
+            // Show success message
+            showSuccessMessage('Individual rating submitted successfully!');
+        }
+
+        function submitGroupRating() {
+            const group = document.getElementById('groupSelect').value;
+            const ratingData = {
+                group: group,
+                ratings: { ...currentRating.group },
+                timestamp: new Date().toISOString(),
+                week: ratings.week
+            };
+
+            ratings.group.push(ratingData);
+            saveRatings();
+            resetForm('group');
+            updateProgress();
+            addRecentRating('group', ratingData);
+            
+            // Show success message
+            showSuccessMessage('Group rating submitted successfully!');
+        }
+
+        function resetForm(type) {
+            if (type === 'individual') {
+                document.getElementById('individualSelect').value = '';
+                currentRating.individual = { helpful: 0, courageous: 0, inspirational: 0 };
+                document.querySelectorAll('#individual-tab .star-rating').forEach(group => {
+                    updateStars(group, 0);
+                });
+                document.getElementById('submitIndividual').disabled = true;
+            } else {
+                document.getElementById('groupSelect').value = '';
+                currentRating.group = { presentation: 0, engagement: 0 };
+                document.querySelectorAll('#group-tab .star-rating').forEach(group => {
+                    updateStars(group, 0);
+                });
+                document.getElementById('submitGroup').disabled = true;
+            }
+        }
+
+        function updateProgress() {
+            const individualCount = ratings.individual.filter(r => r.week === ratings.week).length;
+            const groupCount = ratings.group.filter(r => r.week === ratings.week).length;
+            
+            document.getElementById('individualProgress').textContent = `${individualCount}/15`;
+            document.getElementById('groupProgress').textContent = `${groupCount}/10`;
+            
+            document.getElementById('individualBar').style.width = `${(individualCount / 15) * 100}%`;
+            document.getElementById('groupBar').style.width = `${(groupCount / 10) * 100}%`;
+        }
+
+        function updateWeekDisplay() {
+            document.getElementById('currentWeek').textContent = ratings.week;
+        }
+
+        function addRecentRating(type, data) {
+            const container = document.getElementById('recentRatings');
+            const item = document.createElement('div');
+            item.className = 'flex justify-between items-center p-3 bg-gray-50 rounded-lg';
+            
+            const name = type === 'individual' ? data.person : data.group;
+            const avgRating = type === 'individual' 
+                ? ((data.ratings.helpful + data.ratings.courageous + data.ratings.inspirational) / 3).toFixed(1)
+                : ((data.ratings.presentation + data.ratings.engagement) / 2).toFixed(1);
+            
+            item.innerHTML = `
+                <div>
+                    <span class="font-medium">${name}</span>
+                    <span class="text-sm text-gray-500 ml-2">(${type})</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="text-yellow-500 mr-1">★</span>
+                    <span class="font-medium">${avgRating}</span>
+                </div>
+            `;
+            
+            if (container.querySelector('p')) {
+                container.innerHTML = '';
+            }
+            
+            container.insertBefore(item, container.firstChild);
+            
+            // Keep only last 5 ratings
+            while (container.children.length > 5) {
+                container.removeChild(container.lastChild);
+            }
+        }
+
+        function showSuccessMessage(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        function saveRatings() {
+            localStorage.setItem('peerRatings', JSON.stringify(ratings));
+        }
+		
+		// Save ratings to Google Sheets
+		function saveRatings(type, data) {
+			fetch("https://script.google.com/a/macros/unimap.edu.my/s/AKfycby4SyunsQd-1rm8qGusclbdrL-g7V8Cq3YccmoSCU_v-7nESks4Xyc7vt74CQJ4JYKF/exec", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" }, // ✅ FIXED
+				body: JSON.stringify({
+					type: type,
+					name: type === "individual" ? data.person : data.group,
+					ratings: data.ratings,
+					timestamp: new Date().toISOString(),
+					week: data.week
+				})
+			})
+			.then(res => res.text())
+			.then(txt => {
+				console.log("Saved to Google Sheets:", txt);
+			})
+			.catch(err => {
+				console.error("Error saving to Google Sheets:", err);
+			});
+		}
+
+
+
+        // Simulate week progression (for demo)
+        setTimeout(() => {
+            if (ratings.week === 1 && (ratings.individual.length > 5 || ratings.group.length > 3)) {
+                ratings.week = 2;
+                saveRatings();
+                updateWeekDisplay();
+                showSuccessMessage('Welcome to Week 2!');
+            }
+        }, 30000);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9761529473d5389f',t:'MTc1NjM1ODA0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
